@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'framer-motion';
 export interface CardProps {
 	data?: object | undefined;
 	onClickUpdateCard?: () => void;
@@ -8,8 +9,15 @@ export interface CardProps {
 export default function Card({ data, getIdDelete, getIdUpdate }) {
 	const onClickDeleteCard = () => getIdDelete(data.id);
 	const onClickUpdateCard = () => getIdUpdate(data.id);
+
 	return (
-		<div className='card col-md-5 p-0' style={{ width: '47%' }}>
+		<motion.div
+			initial={{ opacity: 0 }}
+			whileInView={{ opacity: 0.9 }}
+			viewport={{ once: true }}
+			whileHover={{ opacity: 1 }}
+			className='card col-md-5 p-0'
+			style={{ width: '47%' }}>
 			<div className='card-body'>
 				<h5 className='card-title'>{data.firstName + ' ' + data.lastName}</h5>
 				<b className='card-subtitle d-block text-muted'>Email-{data.email}</b>
@@ -37,6 +45,6 @@ export default function Card({ data, getIdDelete, getIdUpdate }) {
 					Delete
 				</button>
 			</div>
-		</div>
+		</motion.div>
 	);
 }

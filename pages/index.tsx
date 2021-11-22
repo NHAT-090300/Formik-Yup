@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import Form from '../components/Form';
 import Notiflix from 'Notiflix';
 import Card from '../components/Card';
-import Image from 'next/image';
 export interface HomePage {
 	handleSubmit?: () => void;
 	deleteCard?: () => void;
@@ -15,6 +14,7 @@ export interface HomePage {
 	localStorage?: Storage;
 	initialData?: object;
 	id?: string;
+	data?: any;
 }
 const Home: React.FC<HomePage> = () => {
 	const [data, setData] = useState([]);
@@ -22,7 +22,12 @@ const Home: React.FC<HomePage> = () => {
 	const [id, setId] = useState(() =>
 		Math.random().toString(36).replace('0.', 'formik-yup'),
 	);
+	const alertSuccess = (data: object, message: string) => {
+		localStorage.setItem('formik-data', JSON.stringify(data));
+		Notiflix.Notify.success(message);
+	};
 
+	// check localStorage then loading
 	useEffect(() => {
 		if (typeof window !== 'undefined') {
 			const localData = JSON.parse(localStorage.getItem('formik-data') || '');
@@ -31,24 +36,21 @@ const Home: React.FC<HomePage> = () => {
 				: localStorage.setItem('formik-data', JSON.stringify([]));
 		}
 	}, []);
-
+	// set id
 	useEffect(() => {
 		setId(Math.random().toString(36).replace('0.', 'formik-yup'));
 	}, [data]);
 	// create a new card
 	const handleSubmit = (values: HomePage, actions: HomePage) => {
-		let preData = data;
-		preData.push((values = { ...values, id: id }));
-		setData([...preData]);
-		localStorage.setItem('formik-data', JSON.stringify(data));
-		Notiflix.Notify.success('you posted data successfully');
+		setData([...data, (values = { ...values, id: id })]);
+		alertSuccess(data, 'You posted data successfully');
 		setTimeout(() => actions.resetForm(), 1000);
 	};
 	// delete card
 	const deleteCard = (id: string) => {
 		const newData = data.filter((value) => value['id'] != id);
 		setData(newData);
-		localStorage.setItem('formik-data', JSON.stringify(newData));
+		alertSuccess(newData, 'You deleted data successfully');
 	};
 	// get data update card
 	const getCardUpdate = (id: string) => {
@@ -64,8 +66,7 @@ const Home: React.FC<HomePage> = () => {
 			}
 		});
 		setData([...preData]);
-		localStorage.setItem('formik-data', JSON.stringify(data));
-		Notiflix.Notify.success('you updated data successfully');
+		alertSuccess(data, 'You updated data successfully');
 		setdataUpdate({});
 		setTimeout(() => actions.resetForm(), 1000);
 	};
@@ -83,8 +84,7 @@ const Home: React.FC<HomePage> = () => {
 						/>
 					</div>
 					<div className='col-md-8 content'>
-						<Image
-							layout='fill'
+						<img
 							className='content_img img-fluid w-100'
 							src='/images/rocket.png'
 							alt='images form'

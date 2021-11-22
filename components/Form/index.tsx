@@ -1,7 +1,7 @@
 // tsrsfc
 import React, { useEffect, useState } from 'react';
 import styles from './form.module.scss';
-import { Formik, Form } from 'formik';
+import { Formik, Form, Field } from 'formik';
 import TextField from '../TextField/index';
 import * as Yup from 'yup';
 interface TextField {
@@ -66,7 +66,7 @@ const index: React.FC<TextField> = ({
 						<Form onSubmit={formik.handleSubmit}>
 							<TextField label='First Name' name='firstName' type='text' />
 							<TextField label='Last Name' name='lastName' type='text' />
-							<TextField label='Email' name='email' type='email' />
+							<TextField label='Email' name='email' type='text' />
 							<TextField label='Phone Number' name='phone' type='number' />
 							<TextField label='Address' name='address' type='text' />
 							<TextField label='Country' name='country' type='text' />
