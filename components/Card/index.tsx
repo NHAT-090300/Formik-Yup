@@ -22,7 +22,7 @@ export default function Card({ data, getIdDelete, getIdUpdate }) {
 				<h5 className='card-title'>{data.firstName + ' ' + data.lastName}</h5>
 				<b className='card-subtitle d-block text-muted'>Email-{data.email}</b>
 				<b className='card-subtitle d-block text-muted'>
-					Phone number-{data.phone}
+					Phone number-0{data.phone}
 				</b>
 				<p className='card-text'>
 					address: {data.address} - country: {data.country}

@@ -56,6 +56,13 @@ a {
 ::-webkit-scrollbar {
 	width: 1px;
 }
+input[type='number'] {
+	-moz-appearance: none;
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+	}
+}
 @media (max-width: 768px) {
 	.card {
 		width: 100% !important;

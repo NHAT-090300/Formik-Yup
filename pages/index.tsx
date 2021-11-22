@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Form from '../components/Form';
 import Notiflix from 'Notiflix';
+import { motion } from 'framer-motion';
 import Card from '../components/Card';
+
 export interface HomePage {
 	handleSubmit?: () => void;
 	deleteCard?: () => void;
@@ -75,15 +77,31 @@ const Home: React.FC<HomePage> = () => {
 		<>
 			<div className='container mt-3'>
 				<div className='row'>
-					<div className='col-md-4'>
-						<h3 className='mb-5 logo'>FORM USER</h3>
+					<motion.div
+						className='col-md-4'
+						initial={{
+							opacity: 0,
+							x: -500,
+							y: -500,
+						}}
+						animate={{ opacity: 0.9, x: 0, y: 0 }}
+						transition={{ duration: 1 }}>
+						<motion.h3 className='mb-5 logo'>FORM USER</motion.h3>
 						<Form
 							handleSubmitCreate={handleSubmit}
 							dataUpdate={dataUpdate}
 							handleSubmitUpdate={handleUpdateCard}
 						/>
-					</div>
-					<div className='col-md-8 content'>
+					</motion.div>
+					<motion.div
+						className='col-md-8 content'
+						initial={{
+							opacity: 0,
+							x: 500,
+							y: 500,
+						}}
+						animate={{ opacity: 0.9, x: 0, y: 0 }}
+						transition={{ duration: 1 }}>
 						<img
 							className='content_img img-fluid w-100'
 							src='/images/rocket.png'
@@ -101,7 +119,7 @@ const Home: React.FC<HomePage> = () => {
 								);
 							})}
 						</div>
-					</div>
+					</motion.div>
 				</div>
 			</div>
 		</>
